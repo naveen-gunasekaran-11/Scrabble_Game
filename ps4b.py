@@ -1,7 +1,6 @@
 from ps4a import *
 import time
 
-
 #
 #
 # Computer chooses a word
@@ -96,10 +95,6 @@ def compPlayHand(hand, wordList, n):
     print('Total score: ' + str(totalScore) + ' points.')
 
     
-#
-# Problem #6: Playing a game
-#
-#
 def playGame(wordList):
     """
     Allow the user to play an arbitrary number of hands.
