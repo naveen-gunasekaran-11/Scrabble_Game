@@ -59,24 +59,24 @@ def getWordScore(word, n):
     returns: int >= 0
     """
         
-    string_len = len(word);
-    empty_word = 0;
-    word_sum = 0;
-    word_total = 0;
+    string_len = len(word)
+    empty_word = 0
+    word_sum = 0
+    word_total = 0
         
     if string_len == 0:
-        return empty_word;
+        return empty_word
     
     for item in word:
         for key, value in SCRABBLE_LETTER_VALUES.items():
             if item == key:
-                word_sum = word_sum + value;
+                word_sum = word_sum + value
     
-    word_total = word_sum * string_len;
+    word_total = word_sum * string_len
     if string_len == n:
-        word_total = word_total + 50;
+        word_total = word_total + 50
     
-    return word_total;
+    return word_total
 
 def displayHand(hand):
     """
@@ -137,15 +137,15 @@ def updateHand(hand, word):
     hand: dictionary (string -> int)    
     returns: dictionary (string -> int)
     """
-    new_hand = {};
-    new_hand = hand.copy();
+    new_hand = {}
+    new_hand = hand.copy()
     
     for letter in word:
         for key, value in hand.items():
             if letter == key:
-                new_hand[key] = new_hand[key] - 1;
+                new_hand[key] = new_hand[key] - 1
     
-    return new_hand;
+    return new_hand
 
 def isValidWord(word, hand, wordList):
     """
@@ -158,37 +158,37 @@ def isValidWord(word, hand, wordList):
     hand: dictionary (string -> int)
     wordList: list of lowercase strings
     """
-    flag_wordlist = False;
-    flag_hand = False;
-    flag = False;
-    dummy_dict = {};
+    flag_wordlist = False
+    flag_hand = False
+    flag = False
+    dummy_dict = {}
     for letter in word:
         if letter in dummy_dict:
-            dummy_dict[letter] = dummy_dict[letter] + 1;
+            dummy_dict[letter] = dummy_dict[letter] + 1
         else:
-            dummy_dict[letter] = 1;
+            dummy_dict[letter] = 1
     
     for string_list in wordList:
         if word == string_list:
-            flag_wordlist = True;
-            break;
+            flag_wordlist = True
+            break
     
     for key_dummy_dict, value_dummy_dict in dummy_dict.items():
         if key_dummy_dict not in hand:
-            flag_hand = False;
-            return flag_hand;
+            flag_hand = False
+            return flag_hand
         
         for key_hand, value_hand in hand.items():
             if key_dummy_dict == key_hand:
                 if value_dummy_dict > value_hand:
-                    flag_hand = False;
-                    return flag_hand;
+                    flag_hand = False
+                    return flag_hand
     
     flag_hand = True;
     if (flag_wordlist and flag_hand) == True:
-        flag = True;
+        flag = True
     
-    return flag;
+    return flag
 
 def calculateHandlen(hand):
     """ 
@@ -197,17 +197,17 @@ def calculateHandlen(hand):
     hand: dictionary (string-> int)
     returns: integer
     """
-    count = 0;
+    count = 0
     for key, value in hand.items():
-        count = count + value;
-    return count;
+        count = count + value
+    return count
 
 def convert_dict_string (hand):
-    string_dup = "";
+    string_dup = ""
     for letter in hand.keys():
         for j in range(hand[letter]):
-             string_dup = string_dup + letter;
-    return string_dup;
+             string_dup = string_dup + letter
+    return string_dup
 
 def playHand(hand, wordList, n):
     """
@@ -232,37 +232,37 @@ def playHand(hand, wordList, n):
       
     """
     
-    total_score = 0;
-    ran_of_letters = False;
-    new_hand = {};
-    new_hand = hand.copy();
+    total_score = 0
+    ran_of_letters = False
+    new_hand = {}
+    new_hand = hand.copy()
        
     while True :
-        check_string = "";
-        check_string = convert_dict_string(new_hand);
+        check_string = ""
+        check_string = convert_dict_string(new_hand)
         if len(check_string) !=0:
-            word_score = 0;
-            print ("Current hand: ", end = "");
-            displayHand (new_hand);
+            word_score = 0
+            print ("Current hand: ", end = "")
+            displayHand (new_hand)
             word_entered = input('Enter word, or a "." to indicate that you are finished: ')
             if word_entered == ".":
-                ran_of_letters = False;
-                print ("Goodbye! Total score: " + str(total_score) + " points.");
-                break;
+                ran_of_letters = False
+                print ("Goodbye! Total score: " + str(total_score) + " points.")
+                break
             else:
                 if isValidWord(word_entered, new_hand, wordList):
-                    word_score = getWordScore(word_entered, n);
-                    total_score = total_score + word_score;
-                    print ('"' + word_entered + '"' + " earned " + str(word_score) + " points. Total: " + str(total_score) + " points.");
-                    new_hand = updateHand(new_hand, word_entered);                 
+                    word_score = getWordScore(word_entered, n)
+                    total_score = total_score + word_score
+                    print ('"' + word_entered + '"' + " earned " + str(word_score) + " points. Total: " + str(total_score) + " points.")
+                    new_hand = updateHand(new_hand, word_entered)               
                 else:
-                    print ("Invalid word, please try again.");
+                    print ("Invalid word, please try again.")
         else:
-            ran_of_letters = True;
-            break;
+            ran_of_letters = True
+            break
  
     if ran_of_letters == True:
-        print ("Run out of letters. Total score: " + str(total_score) + "points.");
+        print ("Run out of letters. Total score: " + str(total_score) + "points.")
     
   
     
@@ -280,24 +280,24 @@ def playGame(wordList):
  
     2) When done playing the hand, repeat from step 1    
     """
-    n = HAND_SIZE;
-    hand = {};
-    count_hand = 0;
+    n = HAND_SIZE
+    hand = {}
+    count_hand = 0
     while True:
-        choice = input ("Enter n to deal a new hand, r to replay the last hand, or e to end game: ");
+        choice = input ("Enter n to deal a new hand, r to replay the last hand, or e to end game: ")
         if choice == 'r':
             if count_hand == 0:
-                print ("You have not played a hand yet. Please play a new hand first!");
+                print ("You have not played a hand yet. Please play a new hand first!")
             else:
-                playHand(hand, wordList, n);
+                playHand(hand, wordList, n)
         elif choice == 'n':
-            count_hand = count_hand + 1;
-            hand = dealHand(n);
-            playHand(hand, wordList, n);
+            count_hand = count_hand + 1
+            hand = dealHand(n)
+            playHand(hand, wordList, n)
         elif choice == 'e':
-            break;
+            break
         else:
-            print("Invalid command.");
+            print("Invalid command.")
 
 #
 # Build data structures used for entire session and play game

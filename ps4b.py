@@ -119,44 +119,44 @@ def playGame(wordList):
 
     wordList: list (string)
     """
-    n = HAND_SIZE;
-    hand = {};
-    count_hand = 0;
+    n = HAND_SIZE
+    hand = {}
+    count_hand = 0
     while True:
-        choice = input ("Enter n to deal a new hand, r to replay the last hand, or e to end game: ");
+        choice = input ("Enter n to deal a new hand, r to replay the last hand, or e to end game: ")
         if choice == 'r':
             if count_hand == 0:
-                print ("You have not played a hand yet. Please play a new hand first!");
+                print ("You have not played a hand yet. Please play a new hand first!")
             else:
                 while True:
-                    comp_human_choice = input ("Enter u to have yourself play, c to have the computer play: ");      
+                    comp_human_choice = input ("Enter u to have yourself play, c to have the computer play: ")   
                     if comp_human_choice == 'u':
-                        playHand(hand, wordList, n);
-                        break;
+                        playHand(hand, wordList, n)
+                        break
                     elif comp_human_choice == 'c':
-                        compPlayHand (hand, wordList, n);
-                        break;
+                        compPlayHand (hand, wordList, n)
+                        break
                     else:
-                        print("Invalid command.");
+                        print("Invalid command.")
         elif choice == 'n':
             while True:
-                comp_human_choice = input ("Enter u to have yourself play, c to have the computer play: ");      
+                comp_human_choice = input ("Enter u to have yourself play, c to have the computer play: ")   
                 if comp_human_choice == 'u':
-                    count_hand = count_hand + 1;
-                    hand = dealHand(n);
-                    playHand(hand, wordList, n);
-                    break;
+                    count_hand = count_hand + 1
+                    hand = dealHand(n)
+                    playHand(hand, wordList, n)
+                    break
                 elif comp_human_choice == 'c':
-                    count_hand = count_hand + 1;
-                    hand = dealHand(n);
-                    compPlayHand (hand, wordList, n);
-                    break;
+                    count_hand = count_hand + 1
+                    hand = dealHand(n)
+                    compPlayHand (hand, wordList, n)
+                    break
                 else:
-                    print("Invalid command.");
+                    print("Invalid command.")
         elif choice == 'e':
-            break;
+            break
         else:
-            print ("Invalid command.");
+            print ("Invalid command.")
 
 #
 # Build data structures used for entire session and play game
